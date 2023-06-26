@@ -14,7 +14,7 @@ echo "mysql-server mysql-server/root_password_again password yourpassword" | sud
 sudo apt install mysql-server -y
 
 # Install PHP
-sudo apt install php libapache2-mod-php php-mysql -y
+sudo apt install php libapache2-mod-php php-mysql php-gd php-json php-mysql php-curl php-mbstring php-intl php-imagick php-xml php-zip -y
 
 # Install phpMyAdmin
 echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
@@ -25,12 +25,9 @@ echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo de
 sudo apt install phpmyadmin -y
 
 # Owncloud installation
-# Install dependencies
-sudo apt install -y php7.2-gd php7.2-json php7.2-mysql php7.2-curl php7.2-mbstring php7.2-intl php-imagick php7.2-xml php7.2-zip
-
 # Download and extract Owncloud
-wget https://download.owncloud.org/community/owncloud-complete-20200731.zip
-unzip owncloud-complete-20200731.zip
+wget https://download.owncloud.org/community/owncloud-complete-latest.zip
+unzip owncloud-complete-latest.zip
 sudo mv owncloud /var/www/
 
 # Set appropriate permissions
@@ -66,8 +63,9 @@ sudo bash -c "cat > /etc/apache2/sites-available/owncloud.conf <<EOF
 </VirtualHost>
 EOF"
 
-# Enable site and restart Apache
+# Enable site and modules
 sudo a2ensite owncloud
+sudo a2enmod rewrite
 sudo systemctl restart apache2
 
 echo "phpMyAdmin and Owncloud installation completed"
