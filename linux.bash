@@ -4,6 +4,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Update system
 sudo apt update && sudo apt upgrade -y
+sudo apt install unzip
 
 # Install Apache
 sudo apt install apache2 -y
@@ -32,7 +33,7 @@ sudo apt install phpmyadmin -y
 
 # Owncloud installation
 # Download and extract Owncloud
-wget https://download.owncloud.org/community/owncloud-complete-latest.zip
+wget https://download.owncloud.com/server/stable/owncloud-complete-latest.zip
 unzip owncloud-complete-latest.zip
 sudo mv owncloud /var/www/
 
